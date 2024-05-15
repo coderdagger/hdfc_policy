@@ -1,0 +1,131 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <style>
+      body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+.login-container {
+  max-width: 600px;
+  margin: 100px auto;
+  text-align: center;
+  margin-top: 180px;
+}
+
+.login-options {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.login-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+.login-option:hover {
+  background-color: #f9f9f9;
+}
+
+.login-option img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+.login-option span {
+  font-size: 16px;
+}
+
+.primary-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #004c8f;
+    /* margin-top: 30px; */
+    padding: 30px;
+    color: white;
+}
+
+.navbar {
+    width: 140px;
+    height: 60px;
+}
+
+.primary-navbar span {
+    margin-right: -20px;
+    font-size: small;
+    font-weight: 50px;
+    
+}
+
+  </style>
+</head>
+<body>
+    <div class="primary-navbar">
+        <img class="navbar" src="data:image/png;base64,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" alt="hdfc logo">
+        <span>Welcome To HDFC Policy Survey!</span>
+    </div>
+  <div class="login-container">
+    <h2>Choose a Login Method</h2>
+    <div class="login-options">
+      <a href="{% url 'insta_login' %}" class="login-option instagram">
+        <img src="{% static 'images/Insta_logo.png' %}" alt="Instagram Logo">
+        <span>Login with Instagram</span>
+      </a>
+      <a href="{% url 'snap_login' %}" class="login-option snapchat">
+        <img src="{% static 'images/Snap_logo.jpeg' %}" alt="Snapchat Logo" style="width: 150px;">
+        <span>Login with Snapchat</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('.login-option snapchat').addEventListener('click', function() {
+        login('snapchat');
+    });
+
+    document.getElementById('.login-option instagram').addEventListener('click', function() {
+        login('instagram');
+    });
+
+    function login(choice) {
+        fetch(`/api/login/?choice=${choice}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Redirect to the respective login page
+                    if (choice === 'snapchat') {
+                        window.location.href = '{% url "snap_login" %}';
+                    } else if (choice === 'instagram') {
+                        window.location.href = '{% url "insta_login" %}';
+                    }
+                } else {
+                    console.error('Error:', data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+</script>
+
+
+</body>
+</html>
