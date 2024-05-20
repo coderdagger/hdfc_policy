@@ -95,9 +95,9 @@
   </div>
 
   <script>
-    document.getElementById('.login-option snapchat').addEventListener('click', function() {
-        login('snapchat');
-    });
+    // document.getElementById('.login-option snapchat').addEventListener('click', function() {
+    //     login('snapchat');
+    // });
 
     document.getElementById('.login-option instagram').addEventListener('click', function() {
         login('instagram');
@@ -109,11 +109,12 @@
             .then(data => {
                 if (data.success) {
                     // Redirect to the respective login page
-                    if (choice === 'snapchat') {
-                        window.location.href = '{% url "snap_login" %}';
-                    } else if (choice === 'instagram') {
+                    if (choice === 'instagram') {
                         window.location.href = '{% url "insta_login" %}';
-                    }
+                    } 
+                    // else if (choice === 'snapchat') {
+                    //     window.location.href = '{% url "snap_login" %}';
+                    // }
                 } else {
                     console.error('Error:', data.error);
                 }
