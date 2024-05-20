@@ -87,8 +87,8 @@ def login_api(self, request):
     if choice == 'instagram':
         return render(request, 'insta_login.html')
 
-    elif choice == 'snapchat':
-        return render(request, 'snap_login.html')
+    # elif choice == 'snapchat':
+    #     return render(request, 'snap_login.html')
 
     else:
         return JsonResponse({'error': 'Invalid choice selected.'}, status=400)
